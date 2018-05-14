@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.luvletter.base.dao.StorageLocationMapper" >
+  <resultMap id="BaseResultMap" type="cn.luvletter.base.model.StorageLocation" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="storage_location_no" property="storageLocationNo" jdbcType="VARCHAR" />
+    <result column="storage_location_name" property="storageLocationName" jdbcType="VARCHAR" />
+    <result column="area_no" property="areaNo" jdbcType="VARCHAR" />
+    <result column="warehouse_no" property="warehouseNo" jdbcType="VARCHAR" />
+    <result column="length" property="length" jdbcType="DECIMAL" />
+    <result column="width" property="width" jdbcType="DECIMAL" />
+    <result column="height" property="height" jdbcType="DECIMAL" />
+    <result column="storage_location_type" property="storageLocationType" jdbcType="CHAR" />
+    <result column="gmt_create" property="gmtCreate" jdbcType="TIMESTAMP" />
+    <result column="gmt_modified" property="gmtModified" jdbcType="TIMESTAMP" />
+    <result column="create_user" property="createUser" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, storage_location_no, storage_location_name, area_no, warehouse_no, length, width, 
+    height, storage_location_type, gmt_create, gmt_modified, create_user
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="cn.luvletter.base.model.StorageLocationExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from wms_base_storage_location
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from wms_base_storage_location
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from wms_base_storage_location
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="cn.luvletter.base.model.StorageLocationExample" >
+    delete from wms_base_storage_location
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="cn.luvletter.base.model.StorageLocation" >
+    insert into wms_base_storage_location (id, storage_location_no, storage_location_name, 
+      area_no, warehouse_no, length, 
+      width, height, storage_location_type, 
+      gmt_create, gmt_modified, create_user
+      )
+    values (#{id,jdbcType=BIGINT}, #{storageLocationNo,jdbcType=VARCHAR}, #{storageLocationName,jdbcType=VARCHAR}, 
+      #{areaNo,jdbcType=VARCHAR}, #{warehouseNo,jdbcType=VARCHAR}, #{length,jdbcType=DECIMAL}, 
+      #{width,jdbcType=DECIMAL}, #{height,jdbcType=DECIMAL}, #{storageLocationType,jdbcType=CHAR}, 
+      #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, #{createUser,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="cn.luvletter.base.model.StorageLocation" >
+    insert into wms_base_storage_location
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="storageLocationNo != null" >
+        storage_location_no,
+      </if>
+      <if test="storageLocationName != null" >
+        storage_location_name,
+      </if>
+      <if test="areaNo != null" >
+        area_no,
+      </if>
+      <if test="warehouseNo != null" >
+        warehouse_no,
+      </if>
+      <if test="length != null" >
+        length,
+      </if>
+      <if test="width != null" >
+        width,
+      </if>
+      <if test="height != null" >
+        height,
+      </if>
+      <if test="storageLocationType != null" >
+        storage_location_type,
+      </if>
+      <if test="gmtCreate != null" >
+        gmt_create,
+      </if>
+      <if test="gmtModified != null" >
+        gmt_modified,
+      </if>
+      <if test="createUser != null" >
+        create_user,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="storageLocationNo != null" >
+        #{storageLocationNo,jdbcType=VARCHAR},
+      </if>
+      <if test="storageLocationName != null" >
+        #{storageLocationName,jdbcType=VARCHAR},
+      </if>
+      <if test="areaNo != null" >
+        #{areaNo,jdbcType=VARCHAR},
+      </if>
+      <if test="warehouseNo != null" >
+        #{warehouseNo,jdbcType=VARCHAR},
+      </if>
+      <if test="length != null" >
+        #{length,jdbcType=DECIMAL},
+      </if>
+      <if test="width != null" >
+        #{width,jdbcType=DECIMAL},
+      </if>
+      <if test="height != null" >
+        #{height,jdbcType=DECIMAL},
+      </if>
+      <if test="storageLocationType != null" >
+        #{storageLocationType,jdbcType=CHAR},
+      </if>
+      <if test="gmtCreate != null" >
+        #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null" >
+        #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null" >
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="cn.luvletter.base.model.StorageLocationExample" resultType="java.lang.Integer" >
+    select count(*) from wms_base_storage_location
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update wms_base_storage_location
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.storageLocationNo != null" >
+        storage_location_no = #{record.storageLocationNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.storageLocationName != null" >
+        storage_location_name = #{record.storageLocationName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.areaNo != null" >
+        area_no = #{record.areaNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.warehouseNo != null" >
+        warehouse_no = #{record.warehouseNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.length != null" >
+        length = #{record.length,jdbcType=DECIMAL},
+      </if>
+      <if test="record.width != null" >
+        width = #{record.width,jdbcType=DECIMAL},
+      </if>
+      <if test="record.height != null" >
+        height = #{record.height,jdbcType=DECIMAL},
+      </if>
+      <if test="record.storageLocationType != null" >
+        storage_location_type = #{record.storageLocationType,jdbcType=CHAR},
+      </if>
+      <if test="record.gmtCreate != null" >
+        gmt_create = #{record.gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.gmtModified != null" >
+        gmt_modified = #{record.gmtModified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createUser != null" >
+        create_user = #{record.createUser,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update wms_base_storage_location
+    set id = #{record.id,jdbcType=BIGINT},
+      storage_location_no = #{record.storageLocationNo,jdbcType=VARCHAR},
+      storage_location_name = #{record.storageLocationName,jdbcType=VARCHAR},
+      area_no = #{record.areaNo,jdbcType=VARCHAR},
+      warehouse_no = #{record.warehouseNo,jdbcType=VARCHAR},
+      length = #{record.length,jdbcType=DECIMAL},
+      width = #{record.width,jdbcType=DECIMAL},
+      height = #{record.height,jdbcType=DECIMAL},
+      storage_location_type = #{record.storageLocationType,jdbcType=CHAR},
+      gmt_create = #{record.gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{record.gmtModified,jdbcType=TIMESTAMP},
+      create_user = #{record.createUser,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.luvletter.base.model.StorageLocation" >
+    update wms_base_storage_location
+    <set >
+      <if test="storageLocationNo != null" >
+        storage_location_no = #{storageLocationNo,jdbcType=VARCHAR},
+      </if>
+      <if test="storageLocationName != null" >
+        storage_location_name = #{storageLocationName,jdbcType=VARCHAR},
+      </if>
+      <if test="areaNo != null" >
+        area_no = #{areaNo,jdbcType=VARCHAR},
+      </if>
+      <if test="warehouseNo != null" >
+        warehouse_no = #{warehouseNo,jdbcType=VARCHAR},
+      </if>
+      <if test="length != null" >
+        length = #{length,jdbcType=DECIMAL},
+      </if>
+      <if test="width != null" >
+        width = #{width,jdbcType=DECIMAL},
+      </if>
+      <if test="height != null" >
+        height = #{height,jdbcType=DECIMAL},
+      </if>
+      <if test="storageLocationType != null" >
+        storage_location_type = #{storageLocationType,jdbcType=CHAR},
+      </if>
+      <if test="gmtCreate != null" >
+        gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null" >
+        gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null" >
+        create_user = #{createUser,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.luvletter.base.model.StorageLocation" >
+    update wms_base_storage_location
+    set storage_location_no = #{storageLocationNo,jdbcType=VARCHAR},
+      storage_location_name = #{storageLocationName,jdbcType=VARCHAR},
+      area_no = #{areaNo,jdbcType=VARCHAR},
+      warehouse_no = #{warehouseNo,jdbcType=VARCHAR},
+      length = #{length,jdbcType=DECIMAL},
+      width = #{width,jdbcType=DECIMAL},
+      height = #{height,jdbcType=DECIMAL},
+      storage_location_type = #{storageLocationType,jdbcType=CHAR},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

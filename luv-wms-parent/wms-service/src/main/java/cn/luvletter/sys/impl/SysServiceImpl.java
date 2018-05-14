@@ -44,6 +44,8 @@ public class SysServiceImpl implements SysService {
     private OprtRoleMapper oprtRoleMapper;
     @Autowired
     private PermissionService permissionService;
+    @Autowired
+    private JdbcUtil jdbcUtil;
     @Override
     public ApiResult register(Operator operator) {
         final String no = operator.getNo();
@@ -94,7 +96,7 @@ public class SysServiceImpl implements SysService {
     @Override
     public ApiResult getAuth() {
         ApiResult apiResult = new ApiResult();
-        apiResult.setData(JdbcUtil.newInstance().selectByParams(SqlConstant.SELECT_ALL_AUTH,null));
+        apiResult.setData(jdbcUtil.selectByParams(SqlConstant.SELECT_ALL_AUTH));
         return apiResult;
     }
 

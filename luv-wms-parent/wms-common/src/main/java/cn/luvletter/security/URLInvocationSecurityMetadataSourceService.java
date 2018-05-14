@@ -7,6 +7,7 @@ import cn.luvletter.constant.SqlConstant;
 import cn.luvletter.util.JdbcUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.access.SecurityConfig;
 import org.springframework.security.web.FilterInvocation;
@@ -26,13 +27,16 @@ import java.util.*;
  */
 @Component
 public class URLInvocationSecurityMetadataSourceService implements FilterInvocationSecurityMetadataSource {
+
+    @Autowired
+    private JdbcUtil jdbcUtil;
     private Logger log = LoggerFactory.getLogger(URLInvocationSecurityMetadataSourceService.class);
 
     private Map<String, Collection<ConfigAttribute>> urlMap =null;
 
 
     private void loadResourceDefine() throws SQLException {
-        List<AuthBean> authBeans = JdbcUtil.newInstance().selectBean(SqlConstant.SELECT_ALL_AUTH, null, AuthBean.class);
+        List<AuthBean> authBeans = jdbcUtil.selectBean(SqlConstant.SELECT_ALL_AUTH, AuthBean.class);
         Collection<ConfigAttribute> array;
         ConfigAttribute cfg;
         urlMap = new HashMap<>();

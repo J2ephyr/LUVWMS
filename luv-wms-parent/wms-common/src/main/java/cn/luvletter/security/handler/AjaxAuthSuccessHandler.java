@@ -31,13 +31,15 @@ public class AjaxAuthSuccessHandler extends SimpleUrlAuthenticationSuccessHandle
 
     @Autowired
     private JWTUtil jwtUtil;
+    @Autowired
+    private OprtService oprtService;
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
         response.setStatus(HttpServletResponse.SC_OK);
         User user = (User) authentication.getPrincipal();
         String username = user.getUsername();
-        AuthenticationBean authenticationBean = OprtService.loadOprt(username);
+        AuthenticationBean authenticationBean = oprtService.loadOprt(username);
         if(authenticationBean == null){
             throw new ApplicationException("username:"+username+"not found");
         }

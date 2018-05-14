@@ -39,6 +39,10 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
 
     @Autowired
     private JWTUtil jwtUtil;
+    @Autowired
+    private JdbcUtil jdbcUtil;
+    @Autowired
+    private OprtService oprtService;
     @Override
     protected void doFilterInternal(HttpServletRequest httpServletRequest,
                                     HttpServletResponse httpServletResponse,
@@ -49,7 +53,7 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
             String username = JWTUtil.getUsernameFromToken(token);
             if (username != null) {
                 //根据token中的账户获取用户信息
-                AuthenticationBean authenticationBean = OprtService.loadOprt(username);
+                AuthenticationBean authenticationBean = oprtService.loadOprt(username);
                 if(authenticationBean == null){
                     throw new ApplicationException("username:"+username+"not found");
                 }
@@ -80,13 +84,13 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
         filterChain.doFilter(httpServletRequest, httpServletResponse);
     }
     public Collection<? extends GrantedAuthority> getAuthentication(String no) throws SQLException {
-        List<Map<String, Object>> list = JdbcUtil.newInstance().selectByParams("select sr.role_name authority,u.no username\n" +
+        List<Map<String, Object>> list = jdbcUtil.selectByParams("select sr.role_name authority,u.no username\n" +
                 "        from sys_operator u\n" +
                 "        LEFT JOIN sys_oprt_role sor on u.no= sor.oprt_no\n" +
                 "        LEFT JOIN sys_role sr on sor.role_no=sr.role_no\n" +
                 "        LEFT JOIN sys_role_permission srp on srp.role_no=sr.role_no\n" +
                 "        LEFT JOIN sys_permission sp on sp.permission_no =srp.permission_no\n" +
-                "        where u.no=?", Arrays.asList(no));
+                "        where u.no=?", no);
 
         List<SimpleGrantedAuthority> v2 = new ArrayList<>();
         SimpleGrantedAuthority v3 = null;

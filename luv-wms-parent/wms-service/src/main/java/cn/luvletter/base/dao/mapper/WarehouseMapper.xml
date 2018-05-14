@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.luvletter.base.dao.WarehouseMapper" >
+  <resultMap id="BaseResultMap" type="cn.luvletter.base.model.Warehouse" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="warehouse_no" property="warehouseNo" jdbcType="VARCHAR" />
+    <result column="warehouse_name" property="warehouseName" jdbcType="VARCHAR" />
+    <result column="warehouse_acreage" property="warehouseAcreage" jdbcType="VARCHAR" />
+    <result column="warehouse_type" property="warehouseType" jdbcType="VARCHAR" />
+    <result column="warehouse_address" property="warehouseAddress" jdbcType="VARCHAR" />
+    <result column="create_user" property="createUser" jdbcType="VARCHAR" />
+    <result column="gmt_create" property="gmtCreate" jdbcType="TIMESTAMP" />
+    <result column="gmt_modified" property="gmtModified" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, warehouse_no, warehouse_name, warehouse_acreage, warehouse_type, warehouse_address, 
+    create_user, gmt_create, gmt_modified
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="cn.luvletter.base.model.WarehouseExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from wms_base_warehouse
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from wms_base_warehouse
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from wms_base_warehouse
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="cn.luvletter.base.model.WarehouseExample" >
+    delete from wms_base_warehouse
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="cn.luvletter.base.model.Warehouse" >
+    insert into wms_base_warehouse (id, warehouse_no, warehouse_name, 
+      warehouse_acreage, warehouse_type, warehouse_address, 
+      create_user, gmt_create, gmt_modified
+      )
+    values (#{id,jdbcType=BIGINT}, #{warehouseNo,jdbcType=VARCHAR}, #{warehouseName,jdbcType=VARCHAR}, 
+      #{warehouseAcreage,jdbcType=VARCHAR}, #{warehouseType,jdbcType=VARCHAR}, #{warehouseAddress,jdbcType=VARCHAR}, 
+      #{createUser,jdbcType=VARCHAR}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="cn.luvletter.base.model.Warehouse" >
+    insert into wms_base_warehouse
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="warehouseNo != null" >
+        warehouse_no,
+      </if>
+      <if test="warehouseName != null" >
+        warehouse_name,
+      </if>
+      <if test="warehouseAcreage != null" >
+        warehouse_acreage,
+      </if>
+      <if test="warehouseType != null" >
+        warehouse_type,
+      </if>
+      <if test="warehouseAddress != null" >
+        warehouse_address,
+      </if>
+      <if test="createUser != null" >
+        create_user,
+      </if>
+      <if test="gmtCreate != null" >
+        gmt_create,
+      </if>
+      <if test="gmtModified != null" >
+        gmt_modified,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="warehouseNo != null" >
+        #{warehouseNo,jdbcType=VARCHAR},
+      </if>
+      <if test="warehouseName != null" >
+        #{warehouseName,jdbcType=VARCHAR},
+      </if>
+      <if test="warehouseAcreage != null" >
+        #{warehouseAcreage,jdbcType=VARCHAR},
+      </if>
+      <if test="warehouseType != null" >
+        #{warehouseType,jdbcType=VARCHAR},
+      </if>
+      <if test="warehouseAddress != null" >
+        #{warehouseAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null" >
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="gmtCreate != null" >
+        #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null" >
+        #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="cn.luvletter.base.model.WarehouseExample" resultType="java.lang.Integer" >
+    select count(*) from wms_base_warehouse
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update wms_base_warehouse
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.warehouseNo != null" >
+        warehouse_no = #{record.warehouseNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.warehouseName != null" >
+        warehouse_name = #{record.warehouseName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.warehouseAcreage != null" >
+        warehouse_acreage = #{record.warehouseAcreage,jdbcType=VARCHAR},
+      </if>
+      <if test="record.warehouseType != null" >
+        warehouse_type = #{record.warehouseType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.warehouseAddress != null" >
+        warehouse_address = #{record.warehouseAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createUser != null" >
+        create_user = #{record.createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gmtCreate != null" >
+        gmt_create = #{record.gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.gmtModified != null" >
+        gmt_modified = #{record.gmtModified,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update wms_base_warehouse
+    set id = #{record.id,jdbcType=BIGINT},
+      warehouse_no = #{record.warehouseNo,jdbcType=VARCHAR},
+      warehouse_name = #{record.warehouseName,jdbcType=VARCHAR},
+      warehouse_acreage = #{record.warehouseAcreage,jdbcType=VARCHAR},
+      warehouse_type = #{record.warehouseType,jdbcType=VARCHAR},
+      warehouse_address = #{record.warehouseAddress,jdbcType=VARCHAR},
+      create_user = #{record.createUser,jdbcType=VARCHAR},
+      gmt_create = #{record.gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{record.gmtModified,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.luvletter.base.model.Warehouse" >
+    update wms_base_warehouse
+    <set >
+      <if test="warehouseNo != null" >
+        warehouse_no = #{warehouseNo,jdbcType=VARCHAR},
+      </if>
+      <if test="warehouseName != null" >
+        warehouse_name = #{warehouseName,jdbcType=VARCHAR},
+      </if>
+      <if test="warehouseAcreage != null" >
+        warehouse_acreage = #{warehouseAcreage,jdbcType=VARCHAR},
+      </if>
+      <if test="warehouseType != null" >
+        warehouse_type = #{warehouseType,jdbcType=VARCHAR},
+      </if>
+      <if test="warehouseAddress != null" >
+        warehouse_address = #{warehouseAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null" >
+        create_user = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="gmtCreate != null" >
+        gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null" >
+        gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.luvletter.base.model.Warehouse" >
+    update wms_base_warehouse
+    set warehouse_no = #{warehouseNo,jdbcType=VARCHAR},
+      warehouse_name = #{warehouseName,jdbcType=VARCHAR},
+      warehouse_acreage = #{warehouseAcreage,jdbcType=VARCHAR},
+      warehouse_type = #{warehouseType,jdbcType=VARCHAR},
+      warehouse_address = #{warehouseAddress,jdbcType=VARCHAR},
+      create_user = #{createUser,jdbcType=VARCHAR},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

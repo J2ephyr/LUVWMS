@@ -75,7 +75,7 @@ public class MybatisGeneratorUtil {
 			Map<String, Object> table;
 
 			// 查询定制前缀项目的所有表
-			JdbcUtil jdbcUtil = JdbcUtil.newInstance();
+			JdbcUtil jdbcUtil = null;
 			List<Map<String,Object>> result = jdbcUtil.selectByParams(sql, null);
 			for (Map map : result) {
 				if(tableName!=null && !tableName.equals(map.get("table_name").toString())){
@@ -87,7 +87,6 @@ public class MybatisGeneratorUtil {
 				table.put("model_name", lineToHump(ObjectUtils.toString(map.get("table_name"))).replace("Wms",""));
 				tables.add(table);
 			}
-			jdbcUtil.release();
 
 			String targetProject_sqlMap =  module + "/" + "wms-service";
 			context.put("tables", tables);

@@ -1,0 +1,26 @@
+# See https://help.github.com/ignore-files/ for more about ignoring files.
+
+#target
+/luv-server/target/
+/luv-wms-parent/wms-web/target/
+/luv-wms-parent/wms-service/target/
+/luv-wms-parent/wms-common/target/
+/luv-wms-parent/wms-api/target/
+
+#properties
+jdbc.properties
+redis.properties
+
+#constant
+/luv-wms-parent/wms-common/src/main/java/cn/luvletter/constant/WMSConstant.java
+
+#log
+*.log
+
+#idea
+/.idea
+*.iml
+/luv-server/src/main/webapp/WEB-INF/lib/
+/luv-wms-parent/luv-server/
+
+

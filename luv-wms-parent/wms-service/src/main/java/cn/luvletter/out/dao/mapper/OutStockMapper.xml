@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.luvletter.out.dao.OutStockMapper" >
+  <resultMap id="BaseResultMap" type="cn.luvletter.out.model.OutStock" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="out_stock_no" property="outStockNo" jdbcType="VARCHAR" />
+    <result column="warehouse_no" property="warehouseNo" jdbcType="VARCHAR" />
+    <result column="out_stock_status" property="outStockStatus" jdbcType="CHAR" />
+    <result column="memo" property="memo" jdbcType="VARCHAR" />
+    <result column="out_date" property="outDate" jdbcType="TIMESTAMP" />
+    <result column="gmt_create" property="gmtCreate" jdbcType="TIMESTAMP" />
+    <result column="gmt_modified" property="gmtModified" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, out_stock_no, warehouse_no, out_stock_status, memo, out_date, gmt_create, gmt_modified
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="cn.luvletter.out.model.OutStockExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from wms_out_stock
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from wms_out_stock
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from wms_out_stock
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="cn.luvletter.out.model.OutStockExample" >
+    delete from wms_out_stock
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="cn.luvletter.out.model.OutStock" >
+    insert into wms_out_stock (id, out_stock_no, warehouse_no, 
+      out_stock_status, memo, out_date, 
+      gmt_create, gmt_modified)
+    values (#{id,jdbcType=BIGINT}, #{outStockNo,jdbcType=VARCHAR}, #{warehouseNo,jdbcType=VARCHAR}, 
+      #{outStockStatus,jdbcType=CHAR}, #{memo,jdbcType=VARCHAR}, #{outDate,jdbcType=TIMESTAMP}, 
+      #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.luvletter.out.model.OutStock" >
+    insert into wms_out_stock
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="outStockNo != null" >
+        out_stock_no,
+      </if>
+      <if test="warehouseNo != null" >
+        warehouse_no,
+      </if>
+      <if test="outStockStatus != null" >
+        out_stock_status,
+      </if>
+      <if test="memo != null" >
+        memo,
+      </if>
+      <if test="outDate != null" >
+        out_date,
+      </if>
+      <if test="gmtCreate != null" >
+        gmt_create,
+      </if>
+      <if test="gmtModified != null" >
+        gmt_modified,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="outStockNo != null" >
+        #{outStockNo,jdbcType=VARCHAR},
+      </if>
+      <if test="warehouseNo != null" >
+        #{warehouseNo,jdbcType=VARCHAR},
+      </if>
+      <if test="outStockStatus != null" >
+        #{outStockStatus,jdbcType=CHAR},
+      </if>
+      <if test="memo != null" >
+        #{memo,jdbcType=VARCHAR},
+      </if>
+      <if test="outDate != null" >
+        #{outDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtCreate != null" >
+        #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null" >
+        #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="cn.luvletter.out.model.OutStockExample" resultType="java.lang.Integer" >
+    select count(*) from wms_out_stock
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update wms_out_stock
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.outStockNo != null" >
+        out_stock_no = #{record.outStockNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.warehouseNo != null" >
+        warehouse_no = #{record.warehouseNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.outStockStatus != null" >
+        out_stock_status = #{record.outStockStatus,jdbcType=CHAR},
+      </if>
+      <if test="record.memo != null" >
+        memo = #{record.memo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.outDate != null" >
+        out_date = #{record.outDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.gmtCreate != null" >
+        gmt_create = #{record.gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.gmtModified != null" >
+        gmt_modified = #{record.gmtModified,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update wms_out_stock
+    set id = #{record.id,jdbcType=BIGINT},
+      out_stock_no = #{record.outStockNo,jdbcType=VARCHAR},
+      warehouse_no = #{record.warehouseNo,jdbcType=VARCHAR},
+      out_stock_status = #{record.outStockStatus,jdbcType=CHAR},
+      memo = #{record.memo,jdbcType=VARCHAR},
+      out_date = #{record.outDate,jdbcType=TIMESTAMP},
+      gmt_create = #{record.gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{record.gmtModified,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.luvletter.out.model.OutStock" >
+    update wms_out_stock
+    <set >
+      <if test="outStockNo != null" >
+        out_stock_no = #{outStockNo,jdbcType=VARCHAR},
+      </if>
+      <if test="warehouseNo != null" >
+        warehouse_no = #{warehouseNo,jdbcType=VARCHAR},
+      </if>
+      <if test="outStockStatus != null" >
+        out_stock_status = #{outStockStatus,jdbcType=CHAR},
+      </if>
+      <if test="memo != null" >
+        memo = #{memo,jdbcType=VARCHAR},
+      </if>
+      <if test="outDate != null" >
+        out_date = #{outDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtCreate != null" >
+        gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null" >
+        gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.luvletter.out.model.OutStock" >
+    update wms_out_stock
+    set out_stock_no = #{outStockNo,jdbcType=VARCHAR},
+      warehouse_no = #{warehouseNo,jdbcType=VARCHAR},
+      out_stock_status = #{outStockStatus,jdbcType=CHAR},
+      memo = #{memo,jdbcType=VARCHAR},
+      out_date = #{outDate,jdbcType=TIMESTAMP},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
