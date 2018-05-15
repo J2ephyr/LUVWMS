@@ -37,6 +37,10 @@
     http.addFilterAt(customAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
     //在权限筛选前添加自定义的url方式筛选
     http.addFilterBefore(urlFilterSecurityInterceptor,FilterSecurityInterceptor.class);
+#### 登录权限验证过程
+![登录权限验证过程](https://raw.githubusercontent.com/J2ephyr/LUVWMS/master/pic/wms_login_process.bmp)
+#### 访问页面权限验证过程
+![访问页面权限验证过程](https://raw.githubusercontent.com/J2ephyr/LUVWMS/master/pic/browing_process.bmp)
 ## 系统功能图
 ![系统功能图](http://cdn.luvletter.cn/wms%E5%8A%9F%E8%83%BD%E5%9B%BE1.png)
 ## 部分系统截图
